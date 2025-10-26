@@ -58,10 +58,12 @@ class CheckoutSolution:
     def apply_free_item_offer(self, offer: Offer) -> NoReturn:
         for item in self.basket_items:
             if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
+                # check if the free item is in the basket already
+                # subtract the price of the free quantity from it
                 free_item = next((item for item in self.basket_items if item["sku"] == offer["free_sku"]), None)
                 if free_item:
-                    free_item_quantity = max(0, free_item["quantity"] - offer["free_quantity"])
-                    adjusted_price = (item["quantity"] * self.get_item_price(item["sku"])) + (free_item_quantity * self.get_item_price(free_item["sku"]))
+                    adjusted_price = (item["quantity"] * self.get_item_price(item["sku"])) - \
+                          (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
                     analysed_item: AnalysedBasketItem = {
                         "sku": item["sku"],
                         "quantity": item["quantity"],
@@ -86,6 +88,7 @@ class CheckoutSolution:
             # the adjusted price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
+
 
 
 
