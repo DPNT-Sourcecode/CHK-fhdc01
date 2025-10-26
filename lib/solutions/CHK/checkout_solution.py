@@ -14,23 +14,24 @@ class CheckoutSolution:
             prices: list[Price] = json.load(f)
         return prices
 
-    def get_sku_quantity(self, skus: str) -> dict[str, int]:
+    def get_item_quantity(self, skus: str) -> dict[str, int]:
         return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
+    
+    def calculate_item_price(self, prices: list[Price], item) -> int | None:
+        sku_price = next((price for price in prices if price["sku"] == item["sku"]), None)
+        if not sku_price:
+            return None
+        if sku_price["special_offer"] and sku_price["special_offer"]["quantity"] == item["quantity"]:
+            return sku_price["special_offer"]["price"]
+        return sku_price["price"] * item["quantity"]
 
     # skus = unicode string
     def checkout(self, skus):
         totals = []
         prices = self.get_prices()
-        sku_with_quantity = self.get_sku_quantity(skus)
-        for sku in sku_with_quantity:
-            sku_price = next((price for price in prices if price["sku"] == sku["sku"]), None)
-            if not sku_price:
-                return -1
-            totals += sku_price["special_offer"]["price"] if \
-                sku_price["special_offer"]["quantity"] == sku["quantity"] else sku_price["price"]
+        item_with_quantity = self.get_item_quantity(skus)
+        for item in item_with_quantity:
+            totals += self.calculate_item_price(prices, item)
+        if None in totals:
+            return -1
         return sum(totals)
-
-
-
-
-
