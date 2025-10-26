@@ -40,7 +40,7 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
-        self.skus = skus.split("")
+        self.skus = list(skus)
         while not self.error:
             item_with_quantity = self.get_item_quantity(skus)
             for item in item_with_quantity:
