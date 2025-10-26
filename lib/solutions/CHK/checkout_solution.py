@@ -31,7 +31,6 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
-        skus = skus.upper()
         totals = []
         prices = self.get_prices()
         item_with_quantity = self.get_item_quantity(skus)
@@ -40,6 +39,7 @@ class CheckoutSolution:
         if None in totals:
             return -1
         return sum(totals)
+
 
 
 

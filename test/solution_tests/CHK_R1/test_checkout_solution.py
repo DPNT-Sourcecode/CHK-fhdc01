@@ -23,11 +23,11 @@ class TestCheckout():
         assert CheckoutSolution().checkout("BBBB") == 90
         assert CheckoutSolution().checkout("BBBBBB") == 135
         # Test for input with multiple cases
-        assert CheckoutSolution().checkout("A") == 50
-        assert CheckoutSolution().checkout("Ab") == 80
-        assert CheckoutSolution().checkout("AaaB") == 160
-        assert CheckoutSolution().checkout("BBbBbB") == 135
-        assert CheckoutSolution().checkout("aAAa") == 180
+        assert CheckoutSolution().checkout("Ab") == -1
+        assert CheckoutSolution().checkout("AaaB") == -1
+        assert CheckoutSolution().checkout("BBbBbB") == -1
+        assert CheckoutSolution().checkout("aAAa") == -1
+
 
 
 
