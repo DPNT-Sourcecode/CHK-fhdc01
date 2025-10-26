@@ -4,7 +4,7 @@ from .types import RawPrice, Offers, AnalysedBasketItem
 
 class CheckoutSolution:
     def __init__(self):
-        self.skus: list[str] = []
+        self.items: list[str] = []
         self.prices: list[RawPrice] = self.get_prices()
         self.offers: Offers = self.get_offers()
         self.total: int = 0
@@ -44,6 +44,10 @@ class CheckoutSolution:
             remainder = item["quantity"] % sku_price["special_offer"]["quantity"]
             return (num_offers * sku_price["special_offer"]["price"]) + (remainder * sku_price["price"])
         return sku_price["price"] * item["quantity"]
+    
+    def analyse_basket(self):
+        # for item in self.items:
+        pass
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
@@ -57,6 +61,7 @@ class CheckoutSolution:
             #     return -1
             # return sum(totals)
         return -1
+
 
 
 
