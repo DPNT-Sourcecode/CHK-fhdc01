@@ -54,8 +54,10 @@ class CheckoutSolution:
                 }
                 self.basket_items_offer_applied.append(analysed_item)
 
+    def apply_free_item_offer(self, offer: Offer) -> NoReturn:
+
     def apply_offers(self) -> NoReturn:
-        for offer in self.offers:
+        for offer in self.offers: # offers should already be prioritised by quantity
             if offer["offer_type"] == "bulk_buy":
                 self.apply_bulk_buy_offer(offer)
             if offer["offer_type"] == "free_item":
@@ -70,5 +72,6 @@ class CheckoutSolution:
             # the adjusted price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
+
 
 
