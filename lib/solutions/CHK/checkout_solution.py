@@ -24,8 +24,9 @@ class CheckoutSolution:
         for sku in sku_with_quantity:
             if sku["sku"] not in prices:
                 return -1
-            if prices:
+            sku_price = next((item for item in prices if item["sku"] == sku["sku"]), None)
         raise NotImplementedError()
+
 
 
 
