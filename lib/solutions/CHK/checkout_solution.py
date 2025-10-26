@@ -19,10 +19,18 @@ class CheckoutSolution:
     
     def calculate_item_price(self, prices: list[Price], item) -> int | None:
         sku_price = next((price for price in prices if price["sku"] == item["sku"]), None)
+        # Catch invalid SKU
         if not sku_price:
             return None
-        if sku_price["special_offer"] and sku_price["special_offer"]["quantity"] == item["quantity"]:
-            return sku_price["special_offer"]["price"]
+        # Check for single special offer match
+        if sku_price["special_offer"] and sku_price["special_offer"]["quantity"] >= item["quantity"]:
+            # return sku_price["special_offer"]["price"]
+        # Check for multiple special offer match
+        # if sku_price["special_offer"] and item["quantity"] > sku_price["special_offer"]["quantity"]:
+            num_offers = item["quantity"] // sku_price["special_offer"]["quantity"]
+            remainder = item["quantity"] % sku_price["special_offer"]["quantity"]
+            return (num_offers * sku_price["special_offer"]["price"]) + (remainder * sku_price["price"])
+
         return sku_price["price"] * item["quantity"]
 
     # skus = unicode string
@@ -30,9 +38,13 @@ class CheckoutSolution:
         totals = []
         prices = self.get_prices()
         item_with_quantity = self.get_item_quantity(skus)
+        print("====================")
+        print(item_with_quantity)
+        print("====================")
         for item in item_with_quantity:
             totals.append(self.calculate_item_price(prices, item))
         if None in totals:
             return -1
         return sum(totals)
+
 
