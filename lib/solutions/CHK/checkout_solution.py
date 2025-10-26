@@ -1,4 +1,5 @@
 import json
+from typing import NoReturn
 
 from .types import RawPrice, Offer, AnalysedBasketItem
 
@@ -26,12 +27,10 @@ class CheckoutSolution:
             offers: list[RawPrice] = json.load(f)
         return sorted(offers, key=lambda x: x["quantity"], reverse=True)
 
-    def get_item_quantity(self, skus: str) -> dict[str, int]:
-        return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
-    
-    def calculate_offer_price(self):
-        pass
-    
+    def analyse_basket(self) -> NoReturn:
+        for item in self.items
+        # return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
+        
     def calculate_item_price(self, prices: list[RawPrice], item) -> int | None:
         sku_price = next((price for price in prices if price["sku"] == item["sku"]), None)
         # Catch invalid SKU
@@ -44,21 +43,15 @@ class CheckoutSolution:
             remainder = item["quantity"] % sku_price["special_offer"]["quantity"]
             return (num_offers * sku_price["special_offer"]["price"]) + (remainder * sku_price["price"])
         return sku_price["price"] * item["quantity"]
-    
-    def analyse_basket(self):
-        # for item in self.items:
-        pass
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
-        self.skus = list(skus)
+        self.items = list(skus)
         while not self.error:
-            self.analyse_basket()
-            # item_with_quantity = self.get_item_quantity(skus)
-            # for item in item_with_quantity:
-            #     self.add_to_total(self.calculate_item_price(prices, item))
-            # if None in totals:
-            #     return -1
-            # return sum(totals)
+            self.analyse_basket() # Get quantity of each item in the basket
+            # Apply offers, prioritise offers with higher quantity first
+            # the adjuste price should be added to the item in the basket
+            # Calculate total price using adjusted prices
         return -1
+
 
