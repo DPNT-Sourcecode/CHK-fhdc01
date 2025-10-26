@@ -27,9 +27,15 @@ class CheckoutSolution:
             offers: list[RawPrice] = json.load(f)
         return sorted(offers, key=lambda x: x["quantity"], reverse=True)
 
-    def analyse_basket(self) -> NoReturn:
-        items_with_quantity = [{"sku": sku, "quantity": self.items.count(sku)} for sku in set(self.items)]
-        # return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
+    def quantify_basket(self) -> NoReturn:
+        for sku in set(self.items):
+            quantity = self.items.count(sku)
+            item: AnalysedBasketItem = {
+                "sku": sku,
+                "quantity": quantity,
+                "adjusted_price": None
+            }
+            self.basket_items.append(item)
         
     def calculate_item_price(self, prices: list[RawPrice], item) -> int | None:
         sku_price = next((price for price in prices if price["sku"] == item["sku"]), None)
@@ -48,11 +54,12 @@ class CheckoutSolution:
     def checkout(self, skus: str) -> int:
         self.items = list(skus)
         while not self.error:
-            self.analyse_basket() # Get quantity of each item in the basket
+            self.quantify_basket() # Get quantity of each item in the basket
             # Apply offers, prioritise offers with higher quantity first
-            # the adjuste price should be added to the item in the basket
+            # the adjusted price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
+
 
 
 

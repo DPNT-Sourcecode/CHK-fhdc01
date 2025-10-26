@@ -23,7 +23,7 @@ class RawPrice(TypedDict):
 class AnalysedBasketItem(TypedDict):
     sku: str
     quantity: int
-    price: int
     adjusted_price: int
+
 
 
