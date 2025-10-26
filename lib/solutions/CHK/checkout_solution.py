@@ -19,13 +19,17 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus):
+        totals = []
         prices = self.get_prices()
         sku_with_quantity = self.get_sku_quantity(skus)
         for sku in sku_with_quantity:
-            if sku["sku"] not in prices:
+            sku_price = next((price for price in prices if price["sku"] == sku["sku"]), None)
+            if not sku_price:
                 return -1
-            sku_price = next((item for item in prices if item["sku"] == sku["sku"]), None)
-        raise NotImplementedError()
+            totals += sku_price["special_offer"]["price"] if \
+                sku_price["special_offer"]["quantity"] == sku["quantity"] else sku_price["price"]
+        return sum(totals)
+
 
 
 
