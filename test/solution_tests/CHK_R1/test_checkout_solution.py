@@ -16,4 +16,11 @@ class TestCheckout():
         assert CheckoutSolution().checkout("C") == 20
         assert CheckoutSolution().checkout("D") == 15
         assert CheckoutSolution().checkout("ABCD") == 115
+        # Add tests to account for multiple special offers
+        assert CheckoutSolution().checkout("AAAA") == 180
+        assert CheckoutSolution().checkout("AAAAA") == 230
+        assert CheckoutSolution().checkout("AAAAAA") == 260
+        assert CheckoutSolution().checkout("BBBB") == 90
+        assert CheckoutSolution().checkout("BBBBBB") == 135
+
 
