@@ -61,7 +61,3 @@ class CheckoutSolution:
             #     return -1
             # return sum(totals)
         return -1
-
-
-
-

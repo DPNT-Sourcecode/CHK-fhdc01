@@ -25,6 +25,3 @@ class AnalysedBasketItem(TypedDict):
     quantity: int
     price: int
     adjusted_price: int
-
-
-
