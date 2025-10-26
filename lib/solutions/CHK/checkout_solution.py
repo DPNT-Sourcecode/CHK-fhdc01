@@ -27,24 +27,29 @@ class CheckoutSolution:
             # return sku_price["special_offer"]["price"]
         # Check for multiple special offer match
         # if sku_price["special_offer"] and item["quantity"] > sku_price["special_offer"]["quantity"]:
+            
             num_offers = item["quantity"] // sku_price["special_offer"]["quantity"]
             remainder = item["quantity"] % sku_price["special_offer"]["quantity"]
+            if sku_price["special_offer"]:
+                print("=========================")
+                print(f"number of offers: {num_offers}")
+                print(f"remainder: {remainder}")
+                print("=========================")
             return (num_offers * sku_price["special_offer"]["price"]) + (remainder * sku_price["price"])
 
         return sku_price["price"] * item["quantity"]
 
     # skus = unicode string
-    def checkout(self, skus):
+    def checkout(self, skus: str) -> int:
+        skus = skus.upper()
         totals = []
         prices = self.get_prices()
         item_with_quantity = self.get_item_quantity(skus)
-        print("====================")
-        print(item_with_quantity)
-        print("====================")
         for item in item_with_quantity:
             totals.append(self.calculate_item_price(prices, item))
         if None in totals:
             return -1
         return sum(totals)
+
 
 
