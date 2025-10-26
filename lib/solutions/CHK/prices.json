@@ -2,27 +2,31 @@
     {
         "sku": "A",
         "price": 50,
-        "special_offer": {
-            "quantity": 3,
-            "price": 130
-        }
+        "special_offers": [
+            {
+                "quantity": 3,
+                "price": 130
+            }
+        ]
     },
     {
         "sku": "B",
         "price": 30,
-        "special_offer": {
-            "quantity": 2,
-            "price": 45
-        }
+        "special_offers": [
+            {
+                "quantity": 2,
+                "price": 45
+            }
+        ]
     },
     {
         "sku": "C",
         "price": 20,
-        "special_offer": null
+        "special_offers": []
     },
     {
         "sku": "D",
         "price": 15,
-        "special_offer": null
+        "special_offers": []
     }
 ]

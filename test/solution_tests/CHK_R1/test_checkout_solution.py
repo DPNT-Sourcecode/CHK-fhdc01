@@ -4,6 +4,7 @@ from solutions.CHK.checkout_solution import CheckoutSolution
 
 class TestCheckout():
     def test_hello(self):
+        # CHK R1
         assert CheckoutSolution().checkout("A") == 50
         assert CheckoutSolution().checkout("AA") == 100
         assert CheckoutSolution().checkout("AAA") == 130
@@ -27,3 +28,7 @@ class TestCheckout():
         assert CheckoutSolution().checkout("AaaB") == -1
         assert CheckoutSolution().checkout("BBbBbB") == -1
         assert CheckoutSolution().checkout("aAAa") == -1
+
+        # CHK R2
+        
+
