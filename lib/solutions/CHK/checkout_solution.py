@@ -1,21 +1,8 @@
 import json
 
-from typing import TypedDict
-
-class BulkOffer(TypedDict):
-    type = "bulk"
-    quantity: int
-    price: int
-
-class Price(TypedDict):
-    sku: str
-    quantity: int
-    special_offer: dict | None
-
-
+from .types import Price, BulkOffer, FreeItemOffer
 
 class CheckoutSolution:
-
     def get_prices(self) -> list[Price]:
         with open("lib/solutions/CHK/prices.json") as f:
             prices: list[Price] = json.load(f)
@@ -46,4 +33,5 @@ class CheckoutSolution:
         if None in totals:
             return -1
         return sum(totals)
+
 
