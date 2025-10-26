@@ -4,7 +4,7 @@
         "price": 50,
         "special_offer": {
             "quantity": 3,
-            "total_price": 130
+            "price": 130
         }
     },
     {
@@ -12,7 +12,7 @@
         "price": 30,
         "special_offer": {
             "quantity": 2,
-            "total_price": 45
+            "price": 45
         }
     },
     {

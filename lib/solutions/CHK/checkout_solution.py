@@ -31,7 +31,8 @@ class CheckoutSolution:
         prices = self.get_prices()
         item_with_quantity = self.get_item_quantity(skus)
         for item in item_with_quantity:
-            totals += self.calculate_item_price(prices, item)
+            totals.append(self.calculate_item_price(prices, item))
         if None in totals:
             return -1
         return sum(totals)
+
