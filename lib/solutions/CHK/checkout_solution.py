@@ -1,5 +1,12 @@
 import json
 
+from typing import TypedDict
+
+class Sku(TypedDict):
+    sku: str
+    quantity: int
+    special_offer: dict | None
+
 class CheckoutSolution:
 
     # skus = unicode string
@@ -13,4 +20,5 @@ class CheckoutSolution:
                 return -1
             if prices[sku][]
         raise NotImplementedError()
+
 
