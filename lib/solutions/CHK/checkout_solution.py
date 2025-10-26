@@ -28,7 +28,7 @@ class CheckoutSolution:
         return sorted(offers, key=lambda x: x["quantity"], reverse=True)
 
     def analyse_basket(self) -> NoReturn:
-        for item in self.items
+        items_with_quantity = [{"sku": sku, "quantity": self.items.count(sku)} for sku in set(self.items)]
         # return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
         
     def calculate_item_price(self, prices: list[RawPrice], item) -> int | None:
@@ -53,5 +53,6 @@ class CheckoutSolution:
             # the adjuste price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
+
 
 
