@@ -1,5 +1,24 @@
 [
     {
+        "bulk_buys": [
+            {
+                "sku": "A",
+                "quantity": 3,
+                "price": 130
+            },
+            {
+                "sku": "A",
+                "quantity": 5,
+                "price": 200
+            },
+            {
+                "sku": "B",
+                "quantity": 2,
+                "price": 200
+            }
+        ]
+    }
+    {
         "type": "bulk",
         "quantity": 3,
         "price": 130
