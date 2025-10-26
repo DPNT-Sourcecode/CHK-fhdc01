@@ -22,18 +22,11 @@ class CheckoutSolution:
         # Catch invalid SKU
         if not sku_price:
             return None
-        # Check for single special offer match
-        print(f"sku_price: {sku_price}, item: {item}")
-        print(f"special offer quantity: {sku_price['special_offer']['quantity'] if sku_price['special_offer'] else 'N/A'}")
+        # Check for special offer pricing including multiples
         if sku_price["special_offer"]:
-            # return sku_price["special_offer"]["price"]
-        # Check for multiple special offer match
-        # if sku_price["special_offer"] and item["quantity"] > sku_price["special_offer"]["quantity"]:
-            
             num_offers = item["quantity"] // sku_price["special_offer"]["quantity"]
             remainder = item["quantity"] % sku_price["special_offer"]["quantity"]
             return (num_offers * sku_price["special_offer"]["price"]) + (remainder * sku_price["price"])
-
         return sku_price["price"] * item["quantity"]
 
     # skus = unicode string
@@ -47,6 +40,7 @@ class CheckoutSolution:
         if None in totals:
             return -1
         return sum(totals)
+
 
 
 
