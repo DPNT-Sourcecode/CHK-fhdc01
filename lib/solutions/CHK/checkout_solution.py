@@ -24,7 +24,7 @@ class CheckoutSolution:
     def get_offers(self) -> list[RawPrice]:
         with open("lib/solutions/CHK/offers.json") as f:
             offers: list[RawPrice] = json.load(f)
-        return offers
+        return sorted(offers, key=lambda x: x["quantity"], reverse=True)
 
     def get_item_quantity(self, skus: str) -> dict[str, int]:
         return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
