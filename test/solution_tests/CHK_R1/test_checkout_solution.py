@@ -30,5 +30,9 @@ class TestCheckout():
         assert CheckoutSolution().checkout("aAAa") == -1
 
         # CHK R2
+        assert CheckoutSolution().checkout("E") == 40
+        assert CheckoutSolution().checkout("EE") == 80
+        assert CheckoutSolution().checkout("EEB") == 80
         
+
 
