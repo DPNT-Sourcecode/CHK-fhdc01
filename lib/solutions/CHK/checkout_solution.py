@@ -39,9 +39,3 @@ class CheckoutSolution:
         if None in totals:
             return -1
         return sum(totals)
-
-
-
-
-
-
