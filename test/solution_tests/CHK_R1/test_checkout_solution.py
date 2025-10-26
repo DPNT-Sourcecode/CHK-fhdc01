@@ -19,8 +19,8 @@ class TestCheckout():
         assert CheckoutSolution().checkout("ABCD") == 115
         # Test for multiple special offers
         assert CheckoutSolution().checkout("AAAA") == 180
-        assert CheckoutSolution().checkout("AAAAA") == 230
-        assert CheckoutSolution().checkout("AAAAAA") == 260
+        assert CheckoutSolution().checkout("AAAAA") == 200
+        assert CheckoutSolution().checkout("AAAAAA") == 250
         assert CheckoutSolution().checkout("BBBB") == 90
         assert CheckoutSolution().checkout("BBBBBB") == 135
         # Test for input with multiple cases
@@ -33,6 +33,9 @@ class TestCheckout():
         assert CheckoutSolution().checkout("E") == 40
         assert CheckoutSolution().checkout("EE") == 80
         assert CheckoutSolution().checkout("EEB") == 80
+        assert CheckoutSolution().checkout("EEBAAAAA") == 280
+        assert CheckoutSolution().checkout("EEBAAA") == 210
         
+
 
 
