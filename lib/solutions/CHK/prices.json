@@ -1,0 +1,28 @@
+[
+    {
+        "sku": "A",
+        "price": 50,
+        "special_offer": {
+            "quantity": 3,
+            "total_price": 130
+        }
+    },
+    {
+        "sku": "B",
+        "price": 30,
+        "special_offer": {
+            "quantity": 2,
+            "total_price": 45
+        }
+    },
+    {
+        "sku": "C",
+        "price": 20,
+        "special_offer": null
+    },
+    {
+        "sku": "D",
+        "price": 15,
+        "special_offer": null
+    }
+]
