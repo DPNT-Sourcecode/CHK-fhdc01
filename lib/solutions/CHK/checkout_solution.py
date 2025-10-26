@@ -4,9 +4,15 @@ from .types import Price, BulkOffer, FreeItemOffer
 
 class CheckoutSolution:
     def __init__(self):
-        self.skus = []
-        self.prices = self.get_prices()
-        self.total = 0
+        self.skus: list[str] = []
+        self.prices: list[Price] = self.get_prices()
+        self.total: int = 0
+        self.error: bool = False
+
+    def add_to_total(self, amount: int):
+        if amount is None:
+            self.error = True
+        self.total += amount
 
     def get_prices(self) -> list[Price]:
         with open("lib/solutions/CHK/prices.json") as f:
@@ -34,14 +40,15 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
-        totals = []
-        prices = self.get_prices()
-        item_with_quantity = self.get_item_quantity(skus)
-        for item in item_with_quantity:
-            totals.append(self.calculate_item_price(prices, item))
-        if None in totals:
-            return -1
-        return sum(totals)
+        while not self.error:
+            item_with_quantity = self.get_item_quantity(skus)
+            for item in item_with_quantity:
+                self.add_to_total(self.calculate_item_price(prices, item))
+            if None in totals:
+                return -1
+            return sum(totals)
+        return -1
+
 
 
 
