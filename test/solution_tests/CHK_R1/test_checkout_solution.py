@@ -3,8 +3,7 @@ from solutions.CHK.checkout_solution import CheckoutSolution
 
 
 class TestCheckout():
-    def test_hello(self):
-        # CHK R1
+    def test_checkout_chk_r1(self):
         assert CheckoutSolution().checkout("A") == 50
         assert CheckoutSolution().checkout("AA") == 100
         assert CheckoutSolution().checkout("AAA") == 130
@@ -28,14 +27,18 @@ class TestCheckout():
         assert CheckoutSolution().checkout("AaaB") == -1
         assert CheckoutSolution().checkout("BBbBbB") == -1
         assert CheckoutSolution().checkout("aAAa") == -1
+        
 
-        # CHK R2
+    # def test_checkout_chk_r2(self):
         assert CheckoutSolution().checkout("E") == 40
         assert CheckoutSolution().checkout("EE") == 80
         assert CheckoutSolution().checkout("EEB") == 80
+        # Price is less than with the b1g1 b free offer than the 2b for 45 offer
+        assert CheckoutSolution().checkout("EEBB") == 110
         assert CheckoutSolution().checkout("EEBAAAAA") == 280
         assert CheckoutSolution().checkout("EEBAAA") == 210
         
+
 
 
 

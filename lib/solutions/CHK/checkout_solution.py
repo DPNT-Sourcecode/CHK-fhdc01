@@ -2,10 +2,17 @@ import json
 
 from typing import TypedDict
 
+class BulkOffer(TypedDict):
+    type = "bulk"
+    quantity: int
+    price: int
+
 class Price(TypedDict):
     sku: str
     quantity: int
     special_offer: dict | None
+
+
 
 class CheckoutSolution:
 
@@ -39,3 +46,4 @@ class CheckoutSolution:
         if None in totals:
             return -1
         return sum(totals)
+
