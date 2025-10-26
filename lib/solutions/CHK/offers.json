@@ -1,24 +1,24 @@
 [
     {
-        "type": "bulk_buy",
+        "offer_type": "bulk_buy",
         "sku": "A",
         "quantity": 3,
         "price": 130
     },
     {
-        "type": "bulk_buy",
+        "offer_type": "bulk_buy",
         "sku": "A",
         "quantity": 5,
         "price": 200
     },
     {
-        "type": "bulk_buy",
+        "offer_type": "bulk_buy",
         "sku": "B",
         "quantity": 2,
         "price": 45
     },
     {
-        "type": "free_item",
+        "offer_type": "free_item",
         "sku": "E",
         "quantity": 2,
         "free_sku": "B",

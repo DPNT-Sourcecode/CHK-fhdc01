@@ -1,12 +1,12 @@
 import json
 
-from .types import RawPrice, Offers, AnalysedBasketItem
+from .types import RawPrice, Offer, AnalysedBasketItem
 
 class CheckoutSolution:
     def __init__(self):
         self.items: list[str] = []
         self.prices: list[RawPrice] = self.get_prices()
-        self.offers: Offers = self.get_offers()
+        self.offers: list[Offer] = self.get_offers()
         self.total: int = 0
         self.error: bool = False
         self.basket_items: list[AnalysedBasketItem] = []
@@ -61,3 +61,4 @@ class CheckoutSolution:
             #     return -1
             # return sum(totals)
         return -1
+
