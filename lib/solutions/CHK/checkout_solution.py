@@ -6,6 +6,7 @@ class CheckoutSolution:
     def __init__(self):
         self.skus: list[str] = []
         self.prices: list[Price] = self.get_prices()
+        self.offers = self.get_offers()
         self.total: int = 0
         self.error: bool = False
 
@@ -18,6 +19,11 @@ class CheckoutSolution:
         with open("lib/solutions/CHK/prices.json") as f:
             prices: list[Price] = json.load(f)
         return prices
+    
+    def get_offers(self) -> list[Price]:
+        with open("lib/solutions/CHK/offers.json") as f:
+            offers: list[Price] = json.load(f)
+        return offers
 
     def get_item_quantity(self, skus: str) -> dict[str, int]:
         return [{"sku": sku, "quantity": skus.count(sku)} for sku in set(skus)]
@@ -49,3 +55,4 @@ class CheckoutSolution:
                 return -1
             return sum(totals)
         return -1
+

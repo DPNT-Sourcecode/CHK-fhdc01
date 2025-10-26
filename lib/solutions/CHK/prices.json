@@ -1,27 +1,22 @@
 [
     {
         "sku": "A",
-        "price": 50,
-        "special_offers":
+        "price": 50
     },
     {
         "sku": "B",
-        "price": 30,
-        "special_offers": []
+        "price": 30
     },
     {
         "sku": "C",
-        "price": 20,
-        "special_offers": []
+        "price": 20
     },
     {
         "sku": "D",
-        "price": 15,
-        "special_offers": []
+        "price": 15
     },
     {
         "sku": "E",
-        "price": 40,
-        "special_offers": []
+        "price": 40
     }
 ]

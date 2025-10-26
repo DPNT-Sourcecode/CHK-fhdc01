@@ -14,29 +14,17 @@
             {
                 "sku": "B",
                 "quantity": 2,
-                "price": 200
+                "price": 45
+            }
+        ],
+        "free_item": [
+            {
+                "sku": "E",
+                "quantity": 2,
+                "free_sku": "B",
+                "free_quantity": 1
             }
         ]
     }
-    {
-        "type": "bulk",
-        "quantity": 3,
-        "price": 130
-    },
-    {
-        "type": "bulk",
-        "quantity": 5,
-        "price": 200
-    },
-    {
-        "type": "bulk",
-        "quantity": 2,
-        "price": 45
-    },
-    {
-        "type": "free_item",
-        "quantity": 2,
-        "free_sku": "B",
-        "free_quantity": 1
-    }
 ]
+

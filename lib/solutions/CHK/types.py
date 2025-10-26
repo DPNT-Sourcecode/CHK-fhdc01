@@ -14,5 +14,7 @@ class FreeItemOffer(TypedDict):
 
 class Price(TypedDict):
     sku: str
-    quantity: int
-    special_offer: BulkOffer | FreeItemOffer | None
+    price: int
+
+
+
