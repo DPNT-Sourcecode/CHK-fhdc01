@@ -1,7 +1,7 @@
 import json
 from typing import NoReturn
 
-from .types import RawPrice, Offer, AnalysedBasketItem
+from .types import RawPrice, Offer, AnalysedBasketItem, BasketItem
 
 class CheckoutSolution:
     def __init__(self):
@@ -10,7 +10,8 @@ class CheckoutSolution:
         self.offers: list[Offer] = self.get_offers()
         self.total: int = 0
         self.error: bool = False
-        self.basket_items: list[AnalysedBasketItem] = []
+        self.basket_items: list[BasketItem] = []
+        self.basket_items_offer_applied: list[AnalysedBasketItem] = []
 
     def add_to_total(self, amount: int):
         if amount is None:
@@ -25,17 +26,22 @@ class CheckoutSolution:
     def get_offers(self) -> list[RawPrice]:
         with open("lib/solutions/CHK/offers.json") as f:
             offers: list[RawPrice] = json.load(f)
+        # Prioritise offers with higher quantity first
         return sorted(offers, key=lambda x: x["quantity"], reverse=True)
 
     def quantify_basket(self) -> NoReturn:
         for sku in set(self.items):
             quantity = self.items.count(sku)
-            item: AnalysedBasketItem = {
+            item: BasketItem = {
                 "sku": sku,
                 "quantity": quantity,
                 "adjusted_price": None
             }
             self.basket_items.append(item)
+
+    def apply_offers(self) -> NoReturn:
+        for offer in self.offers:
+            pass
         
     def calculate_item_price(self, prices: list[RawPrice], item) -> int | None:
         sku_price = next((price for price in prices if price["sku"] == item["sku"]), None)
@@ -59,7 +65,3 @@ class CheckoutSolution:
             # the adjusted price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
-
-
-
-
