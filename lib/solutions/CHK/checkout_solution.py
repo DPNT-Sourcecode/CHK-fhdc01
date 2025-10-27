@@ -70,7 +70,7 @@ class CheckoutSolution:
             if free_item['sku'] == offer["free_sku"]:
                 analysed_item: AnalysedBasketItem = {
                         "sku": free_item["sku"],
-                        "quantity": free_item["free_quantity"],
+                        "quantity": offer["free_quantity"],
                         "adjusted_price": 0,
                         "offer_applied": True
                     }
@@ -159,5 +159,6 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
