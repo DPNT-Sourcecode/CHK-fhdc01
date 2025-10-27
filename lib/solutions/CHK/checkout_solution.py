@@ -36,9 +36,9 @@ class CheckoutSolution:
 
     def get_item_price(self, sku: str) -> int | None:
         sku_price = next((price for price in self.prices if price["sku"] == sku), None)
+        print(sku_price)
         if not sku_price:
             self.error = True
-            return
         return sku_price["price"]
 
     def apply_bulk_buy_offer(self, offer: Offer) -> NoReturn:
@@ -119,6 +119,7 @@ class CheckoutSolution:
             self.calculate_total() # Calculate total price using adjusted prices
             return self.total
         return -1
+
 
 
 
