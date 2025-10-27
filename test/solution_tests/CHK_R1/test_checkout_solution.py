@@ -1,5 +1,5 @@
 import pytest
-from lib.solutions.CHK.checkout_solution import CheckoutSolution
+from solutions.CHK.checkout_solution import CheckoutSolution
 
 
 class TestCheckout():
@@ -63,6 +63,7 @@ class TestCheckout():
         assert CheckoutSolution().checkout("FFFF") == 30
         assert CheckoutSolution().checkout("FFFFF") == 30
         assert CheckoutSolution().checkout("FFFFFF") == 40
+
 
 
 
