@@ -23,5 +23,12 @@
         "quantity": 2,
         "free_sku": "B",
         "free_quantity": 1
+    },
+    {
+        "offer_type": "free_item",
+        "sku": "F",
+        "quantity": 2,
+        "free_sku": "F",
+        "free_quantity": 1
     }
 ]
