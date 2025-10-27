@@ -1,15 +1,15 @@
-from lib.solutions.SUM.sum_solution import SumSolution
-from lib.solutions.HLO.hello_solution import HelloSolution
-from lib.solutions.FIZ.fizz_buzz_solution import FizzBuzzSolution
-from lib.solutions.CHK.checkout_solution import CheckoutSolution
-from lib.solutions.RBT.rabbit_hole_solution import RabbitHoleSolution
-from lib.solutions.AMZ.amazing_solution import AmazingSolution
-from lib.solutions.ULT.ultimate_solution import UltimateSolution
-from lib.solutions.DMO.demo_round1_solution import DemoRound1Solution
-from lib.solutions.DMO.demo_round2_solution import DemoRound2Solution
-from lib.solutions.DMO.demo_round3_solution import DemoRound3Solution
-from lib.solutions.DMO.inventory_item import InventoryItem
-from lib.solutions.DMO.demo_round4n5_solution import DemoRound4n5Solution
+from solutionssolutions.SUM.sum_solution import SumSolution
+from solutionssolutions.HLO.hello_solution import HelloSolution
+from solutionssolutions.FIZ.fizz_buzz_solution import FizzBuzzSolution
+from solutionssolutions.CHK.checkout_solution import CheckoutSolution
+from solutionssolutions.RBT.rabbit_hole_solution import RabbitHoleSolution
+from solutionssolutions.AMZ.amazing_solution import AmazingSolution
+from solutionssolutions.ULT.ultimate_solution import UltimateSolution
+from solutionssolutions.DMO.demo_round1_solution import DemoRound1Solution
+from solutionssolutions.DMO.demo_round2_solution import DemoRound2Solution
+from solutionssolutions.DMO.demo_round3_solution import DemoRound3Solution
+from solutionssolutions.DMO.inventory_item import InventoryItem
+from solutionssolutions.DMO.demo_round4n5_solution import DemoRound4n5Solution
 
 from dataclasses import is_dataclass, asdict
 
@@ -92,3 +92,4 @@ class EntryPointMapping:
     # Round 4 & 5
     def waves(self, *args):
         return self.demo_round4n5_solution.waves(*args)
+

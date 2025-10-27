@@ -1,5 +1,5 @@
 import pytest
-from lib.solutions.SUM.sum_solution import SumSolution
+from solutionssolutions.SUM.sum_solution import SumSolution
 
 
 class TestSum():
@@ -12,3 +12,4 @@ class TestSum():
         assert pytest.raises(ValueError, SumSolution().compute, 0, 101)
         assert pytest.raises(ValueError, SumSolution().compute, 5, -6)
         assert pytest.raises(ValueError, SumSolution().compute, 5, -4)
+
