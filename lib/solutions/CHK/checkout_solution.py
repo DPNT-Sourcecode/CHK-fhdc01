@@ -52,6 +52,7 @@ class CheckoutSolution:
                     "quantity": item["quantity"],
                     "adjusted_price": adjusted_price
                 }
+                self.basket_items.remove(item)
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_free_item_offer(self, offer: Offer) -> NoReturn:
@@ -76,8 +77,7 @@ class CheckoutSolution:
                             "quantity": item["quantity"],
                             "adjusted_price": adjusted_price
                         }
-                    # Remove the instances of the free item from the basket as they have been accounted for
-                    self.basket_items = [item for item in self.basket_items if item["sku"] != offer["free_sku"]]
+                    self.basket_items.remove(item)
                     self.basket_items_offer_applied.append(analysed_item)
                 else:
                     # free item not in basket, add it with adjusted price of 0
@@ -102,9 +102,15 @@ class CheckoutSolution:
     # skus = unicode string
     def checkout(self, skus: str) -> int:
         self.items = list(skus)
+        print("==================================")
+        print(self.items)
         while not self.error:
             self.quantify_basket() # Get quantity of each item in the basket
+            print( self.basket_items)
             self.apply_offers() # Apply offers, prioritise offers with higher quantity first
+            print(self.basket_items_offer_applied)
+            print("==================================")
             self.calculate_total() # Calculate total price using adjusted prices
             return self.total
         return -1
+
