@@ -52,7 +52,6 @@ class CheckoutSolution:
                     "quantity": item["quantity"],
                     "adjusted_price": adjusted_price
                 }
-                self.basket_items.remove(item)
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_free_item_offer(self, offer: Offer) -> NoReturn:
@@ -69,6 +68,7 @@ class CheckoutSolution:
                             "adjusted_price": 0
                         }
                     else:
+                        # only some of the free items are free as the basket has more free items than the offer provides
                         adjusted_price = (item["quantity"] * self.get_item_price(item["sku"])) - \
                             (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
                         analysed_item: AnalysedBasketItem = {
@@ -76,7 +76,8 @@ class CheckoutSolution:
                             "quantity": item["quantity"],
                             "adjusted_price": adjusted_price
                         }
-                    self.basket_items.remove(item)
+                    # Remove the instances of the free item from the basket as they have been accounted for
+                    self.basket_items = [item for item in self.basket_items if item["sku"] != offer["free_sku"]]
                     self.basket_items_offer_applied.append(analysed_item)
 
     def apply_offers(self) -> NoReturn:
@@ -84,7 +85,7 @@ class CheckoutSolution:
             if offer["offer_type"] == "bulk_buy":
                 self.apply_bulk_buy_offer(offer)
             if offer["offer_type"] == "free_item":
-                pass
+                self.apply_free_item_offer(offer)
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
@@ -95,6 +96,7 @@ class CheckoutSolution:
             # the adjusted price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
+
 
 
 
