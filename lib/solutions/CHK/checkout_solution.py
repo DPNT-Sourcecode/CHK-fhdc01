@@ -96,8 +96,8 @@ class CheckoutSolution:
                     "adjusted_price": 0,
                     "offer_applied": True
                 }
-                # if offer["free_sku"] == item["sku"]:
-                #     self.update_raw_basket(offer["free_sku"], offer["free_quantity"])
+                if offer["free_sku"] == item["sku"]:
+                    self.update_raw_basket(offer["free_sku"], offer["free_quantity"])
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_offers(self) -> NoReturn:
@@ -113,6 +113,8 @@ class CheckoutSolution:
                             self.apply_bulk_buy_offer(offer, item)
                     if offer["offer_type"] == "free_item":
                         number_of_offers = item["quantity"] // offer["quantity"]
+                        if offer["free_sku"] == item["sku"] and item["quantity"] % offer["quantity"] == 0:
+                            number_of_offers = item["quantity"] // (offer["quantity"] + offer["free_quantity"])
                         for _ in range(number_of_offers):
                             # if item["quantity"] % offer["quantity"] == 0:
                             #     number_of_offers -= offer["free_quantity"]
@@ -154,6 +156,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
