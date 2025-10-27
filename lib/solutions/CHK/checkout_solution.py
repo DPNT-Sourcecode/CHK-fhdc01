@@ -70,7 +70,7 @@ class CheckoutSolution:
                 free_item = next((item for item in self.basket_items_offer_applied if item["sku"] == offer["free_sku"]), None)
             if free_item['sku'] == offer["free_sku"]:
                 # bogof on same item offer
-                self.update_raw_basket(offer["free_sku"], offer["free_quantity"])
+                self.update_raw_basket(offer["free_sku"], add_quantity=offer["free_quantity"])
             if free_item and not free_item["offer_applied"]:
                 if offer["free_quantity"] >= free_item["quantity"]:
                     # all free items are free as the basket has less or equal free items than the offer provides
@@ -154,8 +154,3 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
-
-
-
-
-
