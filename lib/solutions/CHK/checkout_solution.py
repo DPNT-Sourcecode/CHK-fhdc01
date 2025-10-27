@@ -95,6 +95,18 @@ class CheckoutSolution:
             if offer["offer_type"] == "free_item":
                 self.apply_free_item_offer(offer)
 
+    def process_remaining_items(self) -> NoReturn:
+        for item in self.basket_items:
+            print("Processing remaining item:", item)
+            adjusted_price = item["quantity"] * self.get_item_price(item["sku"])
+            analysed_item: AnalysedBasketItem = {
+                "sku": item["sku"],
+                "quantity": item["quantity"],
+                "adjusted_price": adjusted_price
+            }
+            self.basket_items.remove(item)
+            self.basket_items_offer_applied.append(analysed_item)
+
     def calculate_total(self) -> NoReturn:
         for item in self.basket_items_offer_applied:
             self.total += item["adjusted_price"]
@@ -109,8 +121,11 @@ class CheckoutSolution:
             print( self.basket_items)
             self.apply_offers() # Apply offers, prioritise offers with higher quantity first
             print(self.basket_items_offer_applied)
+            self.process_remaining_items() # Process any remaining items without offers
+            print(self.basket_items_offer_applied)
             print("==================================")
             self.calculate_total() # Calculate total price using adjusted prices
             return self.total
         return -1
+
 
