@@ -96,8 +96,8 @@ class CheckoutSolution:
                     "adjusted_price": 0,
                     "offer_applied": True
                 }
-                if offer["free_quantity"]
-                # self.update_raw_basket(offer["free_sku"], offer["free_quantity"])
+                if offer["free_sku"] == item["sku"] and item["quantity"] > offer["quantity"]:
+                    self.update_raw_basket(offer["free_sku"], offer["free_quantity"])
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_offers(self) -> NoReturn:
@@ -152,3 +152,4 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
