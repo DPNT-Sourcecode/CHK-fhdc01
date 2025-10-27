@@ -120,8 +120,17 @@ class CheckoutSolution:
         for item in self.basket_items_offer_applied:
             self.total += item["adjusted_price"]
 
+    def clear_basket(self) -> NoReturn:
+        self.items = []
+        self.total = 0
+        self.error = False
+        self.basket_items = []
+        self.basket_items_offer_applied = []
+
     # skus = unicode string
     def checkout(self, skus: str) -> int:
+        # Testing framework may be reusing the same instance, so clear previous state
+        self.clear_basket()
         try:
             self.items = list(skus)
             self.quantify_basket() # Get quantity of each item in the basket
@@ -132,3 +141,4 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
