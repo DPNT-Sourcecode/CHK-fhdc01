@@ -40,6 +40,7 @@ class TestCheckout():
     def test_checkout_chk_r2(self):
         assert CheckoutSolution().checkout("E") == 40
         assert CheckoutSolution().checkout("EE") == 80
+        assert CheckoutSolution().checkout("ABCDE") == 155
 
     def test_checkout_chk_r2_free_item(self):
         assert CheckoutSolution().checkout("EEB") == 80
@@ -50,6 +51,7 @@ class TestCheckout():
         assert CheckoutSolution().checkout("EEBAAAAA") == 280
         assert CheckoutSolution().checkout("EEBAAA") == 210
         
+
 
 
 
