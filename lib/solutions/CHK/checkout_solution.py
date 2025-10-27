@@ -35,6 +35,8 @@ class CheckoutSolution:
             }
             self.basket_items.append(item)
         self.basket_items.sort(key=lambda x: x["quantity"], reverse=True)
+        # find items with identical quantities and sort them by the order they appeared in the original items list
+        
 
     def get_item_price(self, sku: str) -> int | None:
         sku_price = next((price for price in self.prices if price["sku"] == sku), None)
@@ -150,8 +152,3 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
-
-
-
-
-

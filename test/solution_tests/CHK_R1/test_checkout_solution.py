@@ -55,6 +55,3 @@ class TestCheckout():
     def test_checkout_chk_r2_jumbled(self):
         assert CheckoutSolution().checkout("CCADDEEBBA") == 280
         assert CheckoutSolution().checkout("ABCDEABCDE") == 280
-
-
-
