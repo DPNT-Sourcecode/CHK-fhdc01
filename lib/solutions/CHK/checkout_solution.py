@@ -122,6 +122,7 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
+        print(f"Checking out basket: {skus}")
         try:
             self.items = list(skus)
             self.quantify_basket() # Get quantity of each item in the basket
@@ -132,5 +133,6 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
