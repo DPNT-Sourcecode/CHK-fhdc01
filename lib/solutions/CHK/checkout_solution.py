@@ -56,7 +56,7 @@ class CheckoutSolution:
             adjusted_price = (num_offers * offer["price"])
             analysed_item: AnalysedBasketItem = {
                 "sku": item["sku"],
-                "quantity": item["quantity"],
+                "quantity": offer["quantity"],
                 "adjusted_price": adjusted_price,
                 "offer_applied": True
             }
@@ -112,7 +112,9 @@ class CheckoutSolution:
                 applicable_offers.sort(key=lambda x: x["quantity"], reverse=True)
                 for offer in applicable_offers:
                     if offer["offer_type"] == "bulk_buy":
-                        self.apply_bulk_buy_offer(offer, item)
+                        number_of_bulk_offers = item["quantity"] // offer["quantity"]
+                        for _ in range(number_of_bulk_offers):
+                            self.apply_bulk_buy_offer(offer, item)
                     if offer["offer_type"] == "free_item":
                         self.apply_free_item_offer(offer, item)
 
@@ -152,3 +154,4 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
