@@ -28,3 +28,5 @@ class AnalysedBasketItem(TypedDict):
     sku: str
     quantity: int
     adjusted_price: int
+    offer_applied: bool
+

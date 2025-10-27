@@ -50,7 +50,8 @@ class CheckoutSolution:
                 analysed_item: AnalysedBasketItem = {
                     "sku": item["sku"],
                     "quantity": item["quantity"],
-                    "adjusted_price": adjusted_price
+                    "adjusted_price": adjusted_price,
+                    "offer_applied": True
                 }
                 self.basket_items = [i for i in self.basket_items if i["sku"] != item["sku"]]
                 self.basket_items_offer_applied.append(analysed_item)
@@ -59,14 +60,15 @@ class CheckoutSolution:
         for item in self.basket_items:
             if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
                 # check if the free item is in the basket already
-                free_item = next((item for item in self.basket_items_offer_applied if item["sku"] == offer["free_sku"]), None)
+                free_item = next((item for item in self.basket_items if item["sku"] == offer["free_sku"]), None)
                 if free_item:
                     if offer["free_quantity"] >= free_item["quantity"]:
                         # all free items are free as the basket has less or equal free items than the offer provides
                         analysed_item: AnalysedBasketItem = {
                             "sku": free_item["sku"],
                             "quantity": free_item["quantity"],
-                            "adjusted_price": 0
+                            "adjusted_price": 0,
+                            "offer_applied": True
                         }
                     else:
                         # only some of the free items are free as the basket has more free items than the offer provides
@@ -75,7 +77,8 @@ class CheckoutSolution:
                         analysed_item: AnalysedBasketItem = {
                             "sku": free_item["sku"],
                             "quantity": free_item["quantity"],
-                            "adjusted_price": adjusted_price
+                            "adjusted_price": adjusted_price,
+                            "offer_applied": True
                         }
                     self.basket_items = [i for i in self.basket_items if i["sku"] != free_item["sku"]]
                     self.basket_items_offer_applied.append(analysed_item)
@@ -84,7 +87,8 @@ class CheckoutSolution:
                     analysed_item: AnalysedBasketItem = {
                         "sku": offer["sku"],
                         "quantity": offer["quantity"],
-                        "adjusted_price": 0
+                        "adjusted_price": 0,
+                        "offer_applied": True
                     }
                     self.basket_items_offer_applied.append(analysed_item)
 
@@ -101,7 +105,8 @@ class CheckoutSolution:
             analysed_item: AnalysedBasketItem = {
                 "sku": item["sku"],
                 "quantity": item["quantity"],
-                "adjusted_price": adjusted_price
+                "adjusted_price": adjusted_price,
+                "offer_applied": False
             }
             self.basket_items_offer_applied.append(analysed_item)
 
@@ -121,6 +126,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
