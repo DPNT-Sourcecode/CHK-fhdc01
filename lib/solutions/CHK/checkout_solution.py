@@ -52,7 +52,7 @@ class CheckoutSolution:
                     "quantity": item["quantity"],
                     "adjusted_price": adjusted_price
                 }
-                self.basket_items.remove(item)
+                self.basket_items = [i for i in self.basket_items if i["sku"] != item["sku"]]
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_free_item_offer(self, offer: Offer) -> NoReturn:
@@ -64,20 +64,20 @@ class CheckoutSolution:
                     if offer["free_quantity"] >= free_item["quantity"]:
                         # all free items are free as the basket has less or equal free items than the offer provides
                         analysed_item: AnalysedBasketItem = {
-                            "sku": item["sku"],
+                            "sku": free_item["sku"],
                             "quantity": free_item["quantity"],
                             "adjusted_price": 0
                         }
                     else:
                         # only some of the free items are free as the basket has more free items than the offer provides
-                        adjusted_price = (item["quantity"] * self.get_item_price(item["sku"])) - \
+                        adjusted_price = (free_item["quantity"] * self.get_item_price(item["sku"])) - \
                             (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
                         analysed_item: AnalysedBasketItem = {
-                            "sku": item["sku"],
-                            "quantity": item["quantity"],
+                            "sku": free_item["sku"],
+                            "quantity": free_item["quantity"],
                             "adjusted_price": adjusted_price
                         }
-                    self.basket_items.remove(item)
+                    self.basket_items = [i for i in self.basket_items if i["sku"] != free_item["sku"]]
                     self.basket_items_offer_applied.append(analysed_item)
                 else:
                     # free item not in basket, add it with adjusted price of 0
@@ -121,4 +121,5 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
