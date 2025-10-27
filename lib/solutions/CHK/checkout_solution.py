@@ -103,7 +103,6 @@ class CheckoutSolution:
                 "quantity": item["quantity"],
                 "adjusted_price": adjusted_price
             }
-            self.basket_items.remove(item)
             self.basket_items_offer_applied.append(analysed_item)
 
     def calculate_total(self) -> NoReturn:
@@ -113,20 +112,14 @@ class CheckoutSolution:
     # skus = unicode string
     def checkout(self, skus: str) -> int:
         self.items = list(skus)
-        print("==================================")
-        print(self.items)
         while not self.error:
             self.quantify_basket() # Get quantity of each item in the basket
-            print( self.basket_items)
             self.apply_offers() # Apply offers, prioritise offers with higher quantity first
-            print( self.basket_items)
-            print(self.basket_items_offer_applied)
             self.process_remaining_items() # Process any remaining items without offers
-            print(self.basket_items_offer_applied)
-            print("==================================")
             self.calculate_total() # Calculate total price using adjusted prices
             return self.total
         return -1
+
 
 
 
