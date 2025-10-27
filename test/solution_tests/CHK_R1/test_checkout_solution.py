@@ -24,6 +24,8 @@ class TestCheckout():
         assert CheckoutSolution().checkout("AAAA") == 180
         assert CheckoutSolution().checkout("AAAAA") == 200
         assert CheckoutSolution().checkout("AAAAAA") == 250
+        assert CheckoutSolution().checkout("AAAAAAAA") == 330
+        assert CheckoutSolution().checkout("AAAAAAAAA") == 380
         assert CheckoutSolution().checkout("BBBB") == 90
         assert CheckoutSolution().checkout("BBBBBB") == 135
         # Test for input with multiple cases
@@ -49,6 +51,8 @@ class TestCheckout():
         # Price is less than with the b1g1 b free offer than the 2b for 45 offer
         assert CheckoutSolution().checkout("EEBB") == 125
         assert CheckoutSolution().checkout("EEEBB") == 165
+        assert CheckoutSolution().checkout("EEEEBB") == 160
         assert CheckoutSolution().checkout("EEBAAAAA") == 280
         assert CheckoutSolution().checkout("EEBAAA") == 210
         
+
