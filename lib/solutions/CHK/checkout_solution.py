@@ -93,10 +93,11 @@ class CheckoutSolution:
                 # free item not in basket, add it with adjusted price of 0
                 analysed_item: AnalysedBasketItem = {
                     "sku": offer["sku"],
-                    "quantity": offer["quantity"],
+                    "quantity": offer["free_quantity"],
                     "adjusted_price": 0,
                     "offer_applied": True
                 }
+                self.update_raw_basket(offer["free_sku"], offer["free_quantity"])
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_offers(self) -> NoReturn:
@@ -151,6 +152,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
