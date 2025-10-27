@@ -59,16 +59,23 @@ class CheckoutSolution:
         for item in self.basket_items:
             if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
                 # check if the free item is in the basket already
-                # subtract the price of the free quantity from it
                 free_item = next((item for item in self.basket_items if item["sku"] == offer["free_sku"]), None)
                 if free_item:
-                    adjusted_price = (item["quantity"] * self.get_item_price(item["sku"])) - \
-                          (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
-                    analysed_item: AnalysedBasketItem = {
-                        "sku": item["sku"],
-                        "quantity": item["quantity"],
-                        "adjusted_price": adjusted_price
-                    }
+                    if offer["free_quantity"] >= free_item["quantity"]:
+                        # all free items are free as the basket has less or equal free items than the offer provides
+                        analysed_item: AnalysedBasketItem = {
+                            "sku": item["sku"],
+                            "quantity": free_item["quantity"],
+                            "adjusted_price": 0
+                        }
+                    else:
+                        adjusted_price = (item["quantity"] * self.get_item_price(item["sku"])) - \
+                            (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
+                        analysed_item: AnalysedBasketItem = {
+                            "sku": item["sku"],
+                            "quantity": item["quantity"],
+                            "adjusted_price": adjusted_price
+                        }
                     self.basket_items.remove(item)
                     self.basket_items_offer_applied.append(analysed_item)
 
@@ -88,6 +95,7 @@ class CheckoutSolution:
             # the adjusted price should be added to the item in the basket
             # Calculate total price using adjusted prices
         return -1
+
 
 
 
