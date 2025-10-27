@@ -4,6 +4,25 @@ from typing import NoReturn
 from .types import RawPrice, Offer, AnalysedBasketItem, BasketItem
 
 class CheckoutSolution:
+    def __init__(self):
+        self.items: list[str] = []
+        self.prices: list[RawPrice] = self.get_prices()
+        self.offers: list[Offer] = self.get_offers()
+        self.total: int = 0
+        self.error: bool = False
+        self.basket_items: list[BasketItem] = []
+        self.basket_items_offer_applied: list[AnalysedBasketItem] = []
+
+    def get_prices(self) -> list[RawPrice]:
+        with open("lib/solutions/CHK/prices.json") as f:
+            prices: list[RawPrice] = json.load(f)
+        return prices
+    
+    def get_offers(self) -> list[RawPrice]:
+        with open("lib/solutions/CHK/offers.json") as f:
+            offers: list[RawPrice] = json.load(f)
+        # Prioritise offers with higher quantity first
+        return sorted(offers, key=lambda x: x["quantity"], reverse=True)
 
     def clear_basket(self) -> NoReturn:
         self.items = []
@@ -50,3 +69,4 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
