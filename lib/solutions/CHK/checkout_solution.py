@@ -30,7 +30,8 @@ class CheckoutSolution:
             item: BasketItem = {
                 "sku": sku,
                 "quantity": quantity,
-                "adjusted_price": None
+                "adjusted_price": None,
+                "offer_applied": False
             }
             self.basket_items.append(item)
         self.basket_items.sort(key=lambda x: x["quantity"], reverse=True)
@@ -131,9 +132,3 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
-
-
-
-
-
-

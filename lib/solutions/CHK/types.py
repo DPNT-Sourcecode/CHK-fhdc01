@@ -29,4 +29,3 @@ class AnalysedBasketItem(TypedDict):
     quantity: int
     adjusted_price: int
     offer_applied: bool
-
