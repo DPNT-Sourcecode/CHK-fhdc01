@@ -104,7 +104,6 @@ class CheckoutSolution:
             if applicable_offers:
                 # sort applicable offers by quantity descending
                 applicable_offers.sort(key=lambda x: x["quantity"], reverse=True)
-                offer = applicable_offers[0]
                 for offer in applicable_offers:
                     if offer["offer_type"] == "bulk_buy":
                         self.apply_bulk_buy_offer(offer)
@@ -147,3 +146,4 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
