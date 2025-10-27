@@ -77,9 +77,6 @@ class CheckoutSolution:
                         "offer_applied": True
                     }
                 else:
-                    # only some of the free items are free as the basket has more free items than the offer provides
-                    # adjusted_price = (free_item["quantity"] * self.get_item_price(item["sku"])) - \
-                    #     (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
                     analysed_item: AnalysedBasketItem = {
                         "sku": free_item["sku"],
                         "quantity": free_item["quantity"],
@@ -153,6 +150,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
