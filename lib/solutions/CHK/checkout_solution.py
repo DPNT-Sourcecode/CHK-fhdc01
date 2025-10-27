@@ -12,7 +12,6 @@ class CheckoutSolution:
         self.error: bool = False
         self.basket_items: list[BasketItem] = []
         self.basket_items_offer_applied: list[AnalysedBasketItem] = []
-        self.offers = []
 
     def get_prices(self) -> list[RawPrice]:
         with open("lib/solutions/CHK/prices.json") as f:
@@ -36,15 +35,6 @@ class CheckoutSolution:
             }
             self.basket_items.append(item)
         self.basket_items.sort(key=lambda x: x["quantity"], reverse=True)
-
-    def get_offer_order(self):
-        for item in self.basket_items:
-            applicable_offers = [offer for offer in self.offers if offer["sku"] == item["sku"]]
-            if applicable_offers:
-                # sort applicable offers by quantity descending
-                applicable_offers.sort(key=lambda x: x["quantity"], reverse=True)
-                self.offers.append(applicable_offers[0])
-        return []
 
     def get_item_price(self, sku: str) -> int | None:
         sku_price = next((price for price in self.prices if price["sku"] == sku), None)
@@ -109,11 +99,16 @@ class CheckoutSolution:
                     self.basket_items_offer_applied.append(analysed_item)
 
     def apply_offers(self) -> NoReturn:
-        for offer in self.offers: # offers should already be prioritised by quantity
-            if offer["offer_type"] == "bulk_buy":
-                self.apply_bulk_buy_offer(offer)
-            if offer["offer_type"] == "free_item":
-                self.apply_free_item_offer(offer)
+        for item in self.basket_items:
+            applicable_offers = [offer for offer in self.offers if offer["sku"] == item["sku"]]
+            if applicable_offers:
+                # sort applicable offers by quantity descending
+                applicable_offers.sort(key=lambda x: x["quantity"], reverse=True)
+                offer = applicable_offers[0]
+                if offer["offer_type"] == "bulk_buy":
+                    self.apply_bulk_buy_offer(offer)
+                if offer["offer_type"] == "free_item":
+                    self.apply_free_item_offer(offer)
 
     def process_remaining_items(self) -> NoReturn:
         for item in self.basket_items:
@@ -151,6 +146,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
