@@ -38,8 +38,3 @@ class TestCheckout():
         # assert CheckoutSolution().checkout("EEBAAAAA") == 280
         # assert CheckoutSolution().checkout("EEBAAA") == 210
         
-
-
-
-
-
