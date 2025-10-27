@@ -61,6 +61,7 @@ class CheckoutSolution:
                 "offer_applied": True
             }
             # self.basket_items = [i for i in self.basket_items if i["sku"] != item["sku"]]
+            self.update_raw_basket(item["sku"], offer["quantity"])
             self.basket_items_offer_applied.append(analysed_item)
 
     def apply_free_item_offer(self, offer: Offer, item: BasketItem) -> NoReturn:
@@ -151,6 +152,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
