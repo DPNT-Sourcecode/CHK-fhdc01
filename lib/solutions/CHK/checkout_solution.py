@@ -95,20 +95,16 @@ class CheckoutSolution:
             if offer["offer_type"] == "free_item":
                 self.apply_free_item_offer(offer)
 
+    def calculate_total(self) -> NoReturn:
+        for item in self.basket_items_offer_applied:
+            self.total += item["adjusted_price"]
+
     # skus = unicode string
     def checkout(self, skus: str) -> int:
         self.items = list(skus)
         while not self.error:
             self.quantify_basket() # Get quantity of each item in the basket
-            self.apply_offers()# Apply offers, prioritise offers with higher quantity first
-            # Calculate total price using adjusted prices
+            self.apply_offers() # Apply offers, prioritise offers with higher quantity first
+            self.calculate_total() # Calculate total price using adjusted prices
+            return self.total
         return -1
-
-
-
-
-
-
-
-
-
