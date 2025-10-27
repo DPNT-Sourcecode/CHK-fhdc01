@@ -90,9 +90,9 @@ class CheckoutSolution:
                 # free item already had an offer applied, do nothing
                 pass
             else:
-                # free item not in basket, add it with adjusted price of 0
+                # add free item to basket
                 analysed_item: AnalysedBasketItem = {
-                    "sku": offer["sku"],
+                    "sku": offer["free_sku"],
                     "quantity": offer["free_quantity"],
                     "adjusted_price": 0,
                     "offer_applied": True
@@ -152,6 +152,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
