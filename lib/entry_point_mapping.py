@@ -92,6 +92,3 @@ class EntryPointMapping:
     # Round 4 & 5
     def waves(self, *args):
         return self.demo_round4n5_solution.waves(*args)
-
-
-

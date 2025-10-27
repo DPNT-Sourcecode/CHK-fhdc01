@@ -22,5 +22,85 @@
     {
         "sku": "F",
         "price": 10
+    },
+    {
+        "sku": "G",
+        "price": 20
+    },
+    {
+        "sku": "H",
+        "price": 10
+    },
+    {
+        "sku": "I",
+        "price": 35
+    },
+    {
+        "sku": "J",
+        "price": 60
+    },
+    {
+        "sku": "K",
+        "price": 80
+    },
+    {
+        "sku": "L",
+        "price": 90
+    },
+    {
+        "sku": "M",
+        "price": 15
+    },
+    {
+        "sku": "N",
+        "price": 40
+    },
+    {
+        "sku": "O",
+        "price": 10
+    },
+    {
+        "sku": "P",
+        "price": 50
+    },
+    {
+        "sku": "Q",
+        "price": 30
+    },
+    {
+        "sku": "R",
+        "price": 50
+    },
+    {
+        "sku": "S",
+        "price": 30
+    },
+    {
+        "sku": "T",
+        "price": 20
+    },
+    {
+        "sku": "U",
+        "price": 40
+    },
+    {
+        "sku": "V",
+        "price": 50
+    },
+    {
+        "sku": "W",
+        "price": 20
+    },
+    {
+        "sku": "X",
+        "price": 90
+    },
+    {
+        "sku": "Y",
+        "price": 10
+    },
+    {
+        "sku": "Z",
+        "price": 50
     }
 ]
