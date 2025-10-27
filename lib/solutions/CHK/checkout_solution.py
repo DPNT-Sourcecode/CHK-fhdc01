@@ -53,7 +53,7 @@ class CheckoutSolution:
         if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
             num_offers = item["quantity"] // offer["quantity"]
             remainder = item["quantity"] % offer["quantity"]
-            adjusted_price = (num_offers * offer["price"]) + (remainder * self.get_item_price(item["sku"]))
+            adjusted_price = (num_offers * offer["price"])
             analysed_item: AnalysedBasketItem = {
                 "sku": item["sku"],
                 "quantity": item["quantity"],
@@ -152,8 +152,3 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
-
-
-
-
-
