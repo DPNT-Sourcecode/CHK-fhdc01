@@ -42,11 +42,10 @@ class CheckoutSolution:
             raise ValueError()
         return sku_price["price"]
     
-    def update_raw_basket(self, sku: str, remove_quantity: int = 0, add_quantity: int = 0) -> NoReturn:
+    def update_raw_basket(self, sku: str, remove_quantity: int) -> NoReturn:
         item = next((item for item in self.basket_items if item["sku"] == sku), None)
         if item:
             item["quantity"] -= remove_quantity
-            item["quantity"] += add_quantity
             self.basket_items = [i for i in self.basket_items if i['sku'] != sku]
             self.basket_items.append(item)
 
@@ -69,9 +68,13 @@ class CheckoutSolution:
             if not free_item:
                 free_item = next((item for item in self.basket_items_offer_applied if item["sku"] == offer["free_sku"]), None)
             if free_item['sku'] == offer["free_sku"]:
-                # bogof on same item offer
-                self.update_raw_basket(offer["free_sku"], add_quantity=offer["free_quantity"])
-            if free_item and not free_item["offer_applied"]:
+                analysed_item: AnalysedBasketItem = {
+                        "sku": free_item["sku"],
+                        "quantity": free_item["quantity"],
+                        "adjusted_price": 0,
+                        "offer_applied": True
+                    }
+            elif free_item and not free_item["offer_applied"]:
                 if offer["free_quantity"] >= free_item["quantity"]:
                     # all free items are free as the basket has less or equal free items than the offer provides
                     analysed_item: AnalysedBasketItem = {
@@ -154,3 +157,4 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
