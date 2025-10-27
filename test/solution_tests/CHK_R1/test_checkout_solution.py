@@ -48,12 +48,7 @@ class TestCheckout():
     def test_checkout_chk_r2_offer_priority(self):
         # Price is less than with the b1g1 b free offer than the 2b for 45 offer
         assert CheckoutSolution().checkout("EEBB") == 125
+        assert CheckoutSolution().checkout("EEEBB") == 165
         assert CheckoutSolution().checkout("EEBAAAAA") == 280
         assert CheckoutSolution().checkout("EEBAAA") == 210
         
-
-
-
-
-
-
