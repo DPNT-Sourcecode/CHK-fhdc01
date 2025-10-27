@@ -1,5 +1,5 @@
 import pytest
-from solutions.CHK.checkout_solution import CheckoutSolution
+from lib.solutions.CHK.checkout_solution import CheckoutSolution
 
 
 class TestCheckout():
@@ -51,6 +51,10 @@ class TestCheckout():
         assert CheckoutSolution().checkout("EEEEBB") == 160
         assert CheckoutSolution().checkout("EEBAAAAA") == 280
         assert CheckoutSolution().checkout("EEBAAA") == 210
-        
+
+    def test_checkout_chk_r2_jumbled(self):
+        assert CheckoutSolution().checkout("CCADDEEBBA") == 280
+        assert CheckoutSolution().checkout("ABCDEABCDE") == 280
+
 
 
