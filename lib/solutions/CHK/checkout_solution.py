@@ -61,6 +61,8 @@ class CheckoutSolution:
             if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
                 # check if the free item is in the basket already
                 free_item = next((item for item in self.basket_items if item["sku"] == offer["free_sku"]), None)
+                if not free_item:
+                    free_item = next((item for item in self.basket_items_offer_applied if item["sku"] == offer["free_sku"]), None)
                 if free_item and not free_item["offer_applied"]:
                     if offer["free_quantity"] >= free_item["quantity"]:
                         # all free items are free as the basket has less or equal free items than the offer provides
@@ -82,6 +84,9 @@ class CheckoutSolution:
                         }
                     self.basket_items = [i for i in self.basket_items if i["sku"] != free_item["sku"]]
                     self.basket_items_offer_applied.append(analysed_item)
+                elif free_item and free_item["offer_applied"]:
+                    # free item already had an offer applied, do nothing
+                    pass
                 else:
                     # free item not in basket, add it with adjusted price of 0
                     analysed_item: AnalysedBasketItem = {
@@ -126,6 +131,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
