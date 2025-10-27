@@ -26,6 +26,9 @@ class CheckoutSolution:
 
     def quantify_basket(self) -> NoReturn:
         for sku in set(self.items):
+            if self.get_item_price(sku) is None:
+                self.error = True
+                return
             quantity = self.items.count(sku)
             item: BasketItem = {
                 "sku": sku,
@@ -36,10 +39,7 @@ class CheckoutSolution:
 
     def get_item_price(self, sku: str) -> int | None:
         sku_price = next((price for price in self.prices if price["sku"] == sku), None)
-        print(sku_price)
-        if not sku_price:
-            self.error = True
-        return sku_price["price"]
+        return sku_price["price"] if sku_price else None
 
     def apply_bulk_buy_offer(self, offer: Offer) -> NoReturn:
         for item in self.basket_items:
@@ -119,6 +119,7 @@ class CheckoutSolution:
             self.calculate_total() # Calculate total price using adjusted prices
             return self.total
         return -1
+
 
 
 
