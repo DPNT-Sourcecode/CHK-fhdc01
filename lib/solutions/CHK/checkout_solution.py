@@ -122,8 +122,8 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus: str) -> int:
-        self.items = list(skus)
         try:
+            self.items = list(skus)
             self.quantify_basket() # Get quantity of each item in the basket
             self.apply_offers() # Apply offers, prioritise offers with higher quantity first
             self.process_remaining_items() # Process any remaining items without offers
@@ -132,4 +132,5 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
