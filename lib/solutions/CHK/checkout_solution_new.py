@@ -43,13 +43,68 @@ class CheckoutSolution:
             self.basket_items.append(item)
         self.basket_items.sort(key=lambda x: x["quantity"], reverse=True)
 
+    def apply_bulk_buy_offer(self, offer: Offer) -> NoReturn:
+        for item in self.basket_items:
+            if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
+                num_offers = item["quantity"] // offer["quantity"]
+                remainder = item["quantity"] % offer["quantity"]
+                adjusted_price = (num_offers * offer["price"]) + (remainder * self.get_item_price(item["sku"]))
+                analysed_item: AnalysedBasketItem = {
+                    "sku": item["sku"],
+                    "quantity": item["quantity"],
+                    "adjusted_price": adjusted_price,
+                    "offer_applied": True
+                }
+                self.basket_items_offer_applied.append(analysed_item)
+
+    def apply_free_item_offer(self, offer: Offer) -> NoReturn:
+        for item in self.basket_items:
+            if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
+                # check if the free item is in the basket already
+                free_item = next((item for item in self.basket_items if item["sku"] == offer["free_sku"]), None)
+                if not free_item:
+                    free_item = next((item for item in self.basket_items_offer_applied if item["sku"] == offer["free_sku"]), None)
+                if free_item and not free_item["offer_applied"]:
+                    if offer["free_quantity"] >= free_item["quantity"]:
+                        # all free items are free as the basket has less or equal free items than the offer provides
+                        analysed_item: AnalysedBasketItem = {
+                            "sku": free_item["sku"],
+                            "quantity": free_item["quantity"],
+                            "adjusted_price": 0,
+                            "offer_applied": True
+                        }
+                    else:
+                        # only some of the free items are free as the basket has more free items than the offer provides
+                        adjusted_price = (free_item["quantity"] * self.get_item_price(item["sku"])) - \
+                            (offer["free_quantity"] * self.get_item_price(free_item["sku"]))
+                        analysed_item: AnalysedBasketItem = {
+                            "sku": free_item["sku"],
+                            "quantity": free_item["quantity"],
+                            "adjusted_price": adjusted_price,
+                            "offer_applied": True
+                        }
+                    self.basket_items = [i for i in self.basket_items if i["sku"] != free_item["sku"]]
+                    self.basket_items_offer_applied.append(analysed_item)
+                elif free_item and free_item["offer_applied"]:
+                    # free item already had an offer applied, do nothing
+                    pass
+                else:
+                    # free item not in basket, add it with adjusted price of 0
+                    analysed_item: AnalysedBasketItem = {
+                        "sku": offer["sku"],
+                        "quantity": offer["quantity"],
+                        "adjusted_price": 0,
+                        "offer_applied": True
+                    }
+                    self.basket_items_offer_applied.append(analysed_item)
+
     def apply_offers(self) -> NoReturn:
         for item in self.basket_items:
-            applicable_offers = [offer for offer in self.offers if offer["sku"] == item["sku"]]
-            if applicable_offers:
+            possible_offers = [offer for offer in self.offers if offer["sku"] == item["sku"]]
+            if possible_offers:
                 # sort applicable offers by quantity descending
-                applicable_offers.sort(key=lambda x: x["quantity"], reverse=True)
-                for offer in applicable_offers:
+                possible_offers.sort(key=lambda x: x["quantity"], reverse=True)
+                for offer in possible_offers:
                     if offer["offer_type"] == "bulk_buy":
                         self.apply_bulk_buy_offer(offer)
                     if offer["offer_type"] == "free_item":
@@ -69,4 +124,5 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
