@@ -41,6 +41,13 @@ class CheckoutSolution:
         if not sku_price:
             raise ValueError()
         return sku_price["price"]
+    
+    def update_raw_basket(self, sku: str, remove_quantity: int) -> NoReturn:
+        item = next((item for item in self.basket_items if item["sku"] == sku), None)
+        if item:
+            item["quantity"] -= remove_quantity
+            self.basket_items = [i for i in self.basket_items if i['sku'] != sku]
+            self.basket_items.append(item)
 
     def apply_bulk_buy_offer(self, offer: Offer, item: BasketItem) -> NoReturn:
         if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
@@ -144,6 +151,7 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
 
