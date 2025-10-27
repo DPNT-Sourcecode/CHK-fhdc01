@@ -97,7 +97,6 @@ class CheckoutSolution:
 
     def process_remaining_items(self) -> NoReturn:
         for item in self.basket_items:
-            print("Processing remaining item:", item)
             adjusted_price = item["quantity"] * self.get_item_price(item["sku"])
             analysed_item: AnalysedBasketItem = {
                 "sku": item["sku"],
@@ -120,6 +119,7 @@ class CheckoutSolution:
             self.quantify_basket() # Get quantity of each item in the basket
             print( self.basket_items)
             self.apply_offers() # Apply offers, prioritise offers with higher quantity first
+            print( self.basket_items)
             print(self.basket_items_offer_applied)
             self.process_remaining_items() # Process any remaining items without offers
             print(self.basket_items_offer_applied)
@@ -127,5 +127,6 @@ class CheckoutSolution:
             self.calculate_total() # Calculate total price using adjusted prices
             return self.total
         return -1
+
 
 
