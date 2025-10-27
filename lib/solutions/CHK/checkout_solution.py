@@ -41,20 +41,13 @@ class CheckoutSolution:
         if not sku_price:
             raise ValueError()
         return sku_price["price"]
-    
-    def update_existing_basket_item(self, sku: str, quantity: int) -> NoReturn:
-        new_item: BasketItem = {
-            "sku": sku,
-            "quantity": quantity,
-        }
-        self.basket_items.append(new_item)
 
     def apply_bulk_buy_offer(self, offer: Offer) -> NoReturn:
         for item in self.basket_items:
             if item["sku"] == offer["sku"] and item["quantity"] >= offer["quantity"]:
                 num_offers = item["quantity"] // offer["quantity"]
                 remainder = item["quantity"] % offer["quantity"]
-                adjusted_price = (num_offers * offer["price"])
+                adjusted_price = (num_offers * offer["price"]) + (remainder * self.get_item_price(item["sku"]))
                 analysed_item: AnalysedBasketItem = {
                     "sku": item["sku"],
                     "quantity": item["quantity"],
@@ -62,8 +55,6 @@ class CheckoutSolution:
                     "offer_applied": True
                 }
                 self.basket_items = [i for i in self.basket_items if i["sku"] != item["sku"]]
-                if remainder > 0:
-                    self.update_existing_basket_item(sku=item["sku"], quantity=remainder)
                 self.basket_items_offer_applied.append(analysed_item)
 
     def apply_free_item_offer(self, offer: Offer) -> NoReturn:
@@ -150,5 +141,6 @@ class CheckoutSolution:
         except ValueError as e:
             print(e)
             return -1
+
 
 
